@@ -29,6 +29,7 @@ namespace Willsfit
 		{
 			services.AddRazorPages();
 			services.AddTransient<JsonFileProductService>();
+			services.AddControllers();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,12 +56,13 @@ namespace Willsfit
 			app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapRazorPages();
-				endpoints.MapGet("/products", (context) => 
-				{
-					var products = app.ApplicationServices.GetService<JsonFileProductService>().GetProducts();
-					var json = JsonSerializer.Serialize(products);
-					return context.Response.WriteAsync(json);
-				});
+				endpoints.MapControllers();
+				//endpoints.MapGet("/products", (context) => 
+				//{
+				//	var products = app.ApplicationServices.GetService<JsonFileProductService>().GetProducts();
+				//	var json = JsonSerializer.Serialize(products);
+				//	return context.Response.WriteAsync(json);
+				//});
 			});
 		}
 	}
